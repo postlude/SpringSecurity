@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:security="http://www.springframework.org/schema/security"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans
+					http://www.springframework.org/schema/beans/spring-beans.xsd
+					http://www.springframework.org/schema/security
+					http://www.springframework.org/schema/security/spring-security-3.2.xsd">
+
+	<!-- security에 사용하지 않을 내용들 -->
+	<security:http pattern="/**/*.js" security="none"/>
+	<security:http pattern="/images/*" security="none"/>
+	
+	<security:http auto-config="true">
+		<!-- url pattern은 구체적인 것을 먼저
+			 순서가 바뀔 경우 모든 url을 ROLE_USER로 access 해버린다.
+		 -->
+		<security:intercept-url pattern="/admin/**" access="ROLE_ADMIN,ROLE_USER"/>
+		<security:intercept-url pattern="/**" access="ROLE_USER"/>
+	</security:http>
+	
+	<security:authentication-manager>
+		<security:authentication-provider>
+			<security:user-service>
+				<security:user name="user" password="123" authorities="ROLE_USER"/>
+				<security:user name="admin" password="123" authorities="ROLE_ADMIN"/>
+			</security:user-service>
+		</security:authentication-provider>
+	</security:authentication-manager>
+
+</beans>
