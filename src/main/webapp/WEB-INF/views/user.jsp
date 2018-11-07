@@ -12,6 +12,6 @@
 <title></title>
 </head>
 <body>
-	test.jsp
+	user.jsp
 </body>
 </html>

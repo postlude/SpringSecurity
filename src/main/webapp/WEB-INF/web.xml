@@ -23,7 +23,12 @@
 	     -->
         <url-pattern>/*</url-pattern>
     </filter-mapping>
-	
+    
+    <!-- 서버쪽 session-timeout도 설정해야 함 -->
+    <session-config>
+        <session-timeout>1</session-timeout>
+    </session-config>
+    
 	<!-- Creates the Spring Container shared by all Servlets and Filters -->
 	<listener>
 		<listener-class>org.springframework.web.context.ContextLoaderListener</listener-class>

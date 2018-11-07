@@ -11,12 +11,21 @@
 	<security:http pattern="/**/*.js" security="none"/>
 	<security:http pattern="/images/*" security="none"/>
 	
-	<security:http auto-config="true">
+	<security:http auto-config="true" use-expressions="true">
 		<!-- url pattern은 구체적인 것을 먼저
 			 순서가 바뀔 경우 모든 url을 ROLE_USER로 access 해버린다.
 		 -->
-		<security:intercept-url pattern="/admin/**" access="ROLE_ADMIN,ROLE_USER"/>
-		<security:intercept-url pattern="/**" access="ROLE_USER"/>
+		<!-- <security:intercept-url pattern="/admin/**" access="ROLE_ADMIN"/> -->
+		<security:intercept-url pattern="/admin/**" access="hasRole('ROLE_ADMIN')"/>
+		<!-- <security:intercept-url pattern="/login" access="ROLE_ANONYMOUS"/> -->
+		<security:intercept-url pattern="/login" access="isAnonymous()"/>
+		<!-- <security:intercept-url pattern="/home" access="ROLE_ANONYMOUS, ROLE_ADMIN, ROLE_USER"/> -->
+		<security:intercept-url pattern="/home" access="permitAll"/>
+		<!-- <security:intercept-url pattern="/user" access="ROLE_USER, ROLE_ADMIN"/> -->
+		<security:intercept-url pattern="/user" access="hasAnyRole('ROLE_USER', 'ROLE_ADMIN')"/>
+		<!-- <security:intercept-url pattern="/**" access="ROLE_ANONYMOUS, ROLE_USER, ROLE_ADMIN"/> -->
+		<security:intercept-url pattern="/**" access="permitAll"/>
+		<security:form-login username-parameter="id" password-parameter="password" login-page="/login" default-target-url="/home" authentication-failure-url="/fail" always-use-default-target="false"/>
 	</security:http>
 	
 	<security:authentication-manager>

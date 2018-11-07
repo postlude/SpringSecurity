@@ -36,9 +36,19 @@ public class HomeController {
 		return "home";
 	}
 	
-	@RequestMapping("test")
-	public String test() {
-		return "test";
+	@RequestMapping("login")
+	public String login() {
+		return "login";
+	}
+	
+	@RequestMapping("fail")
+	public String fail() {
+		return "fail";
+	}
+	
+	@RequestMapping("user")
+	public String user() {
+		return "user";
 	}
 	
 	@RequestMapping("admin/test")
